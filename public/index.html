@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ComercioTech — Panel de Administración</title>
+
+  <!-- Tipografías profesionales -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- =====================================================
+       HEADER — Barra superior con logo y estado del servidor
+  ===================================================== -->
+  <header class="header">
+    <div class="header__inner">
+      <div class="header__logo">
+        <div class="header__logo-icon">🏪</div>
+        <div class="header__logo-text">Comercio<span>Tech</span></div>
+      </div>
+      <div class="header__meta">
+        <div class="header__db">
+          <div class="status-dot"></div>
+          MongoDB · comerciotech_db
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================
+       NAVEGACIÓN — Pestañas de secciones
+  ===================================================== -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <button class="tab-btn active" onclick="showTab('clientes', this)">
+        👥 Clientes
+        <span class="tab-count" id="count-clientes">0</span>
+      </button>
+      <button class="tab-btn" onclick="showTab('productos', this)">
+        📦 Productos
+        <span class="tab-count" id="count-productos">0</span>
+      </button>
+      <button class="tab-btn" onclick="showTab('pedidos', this)">
+        🛒 Pedidos
+        <span class="tab-count" id="count-pedidos">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+  ===================================================== -->
+  <main class="main">
+
+    <!-- ==================== CLIENTES ==================== -->
+    <section class="section active" id="sec-clientes">
+
+      <!-- Métricas rápidas -->
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="metric-card__icon metric-card__icon--blue">👥</div>
+          <div>
+            <div class="metric-card__label">Total clientes</div>
+            <div class="metric-card__value" id="metric-clientes">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Encabezado de sección -->
+      <div class="section-header">
+        <div>
+          <div class="section-header__title">Clientes</div>
+          <div class="section-header__subtitle">Registro de clientes de ComercioTech</div>
+        </div>
+        <button class="btn btn--primary" onclick="abrirModalCliente()">＋ Nuevo cliente</button>
+      </div>
+
+      <!-- Tabla -->
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Calle</th>
+              <th>Ciudad / País</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-clientes"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== PRODUCTOS ==================== -->
+    <section class="section" id="sec-productos">
+
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="metric-card__icon metric-card__icon--green">📦</div>
+          <div>
+            <div class="metric-card__label">Total productos</div>
+            <div class="metric-card__value" id="metric-productos">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div>
+          <div class="section-header__title">Productos</div>
+          <div class="section-header__subtitle">Catálogo y control de inventario</div>
+        </div>
+        <button class="btn btn--primary" onclick="abrirModalProducto()">＋ Nuevo producto</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre / Descripción</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-productos"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== PEDIDOS ==================== -->
+    <section class="section" id="sec-pedidos">
+
+      <div class="metrics">
+        <div class="metric-card">
+          <div class="metric-card__icon metric-card__icon--yellow">🛒</div>
+          <div>
+            <div class="metric-card__label">Total pedidos</div>
+            <div class="metric-card__value" id="metric-pedidos">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div>
+          <div class="section-header__title">Pedidos</div>
+          <div class="section-header__subtitle">Seguimiento de órdenes de compra</div>
+        </div>
+        <button class="btn btn--primary" onclick="abrirModalPedido()">＋ Nuevo pedido</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID Pedido</th>
+              <th>Cliente</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Total</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-pedidos"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       MODAL — CLIENTE
+  ===================================================== -->
+  <div class="modal-overlay" id="modal-cliente">
+    <div class="modal">
+      <div class="modal__header">
+        <div>
+          <div class="modal__title" id="modal-cliente-titulo">Nuevo cliente</div>
+          <div class="modal__subtitle" id="modal-cliente-subtitulo">Completa los datos del cliente</div>
+        </div>
+        <button class="modal__close" onclick="cerrarModal('modal-cliente')">✕</button>
+      </div>
+
+      <form onsubmit="guardarCliente(event)">
+        <div class="form-group">
+          <label>Nombre completo</label>
+          <input type="text" id="c-nombre" placeholder="Ej: Ana Martínez" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="c-email" placeholder="ana@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="text" id="c-telefono" placeholder="+56912345678" required />
+          </div>
+        </div>
+
+        <div class="form-section">Dirección</div>
+
+        <div class="form-group">
+          <label>Calle</label>
+          <input type="text" id="c-calle" placeholder="Av. Providencia 123" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ciudad</label>
+            <input type="text" id="c-ciudad" placeholder="Santiago" required />
+          </div>
+          <div class="form-group">
+            <label>País</label>
+            <input type="text" id="c-pais" placeholder="Chile" required />
+          </div>
+        </div>
+
+        <input type="hidden" id="c-id" />
+
+        <div class="modal__footer">
+          <button type="button" class="btn btn--secondary" onclick="cerrarModal('modal-cliente')">Cancelar</button>
+          <button type="submit" class="btn btn--primary">Guardar cliente</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       MODAL — PRODUCTO
+  ===================================================== -->
+  <div class="modal-overlay" id="modal-producto">
+    <div class="modal">
+      <div class="modal__header">
+        <div>
+          <div class="modal__title" id="modal-producto-titulo">Nuevo producto</div>
+          <div class="modal__subtitle" id="modal-producto-subtitulo">Agrega un producto al catálogo</div>
+        </div>
+        <button class="modal__close" onclick="cerrarModal('modal-producto')">✕</button>
+      </div>
+
+      <form onsubmit="guardarProducto(event)">
+        <div class="form-group">
+          <label>Nombre del producto</label>
+          <input type="text" id="p-nombre" placeholder="Ej: Laptop Pro 15" required />
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <input type="text" id="p-descripcion" placeholder="Descripción breve del producto" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Precio (USD)</label>
+            <input type="number" id="p-precio" placeholder="0.00" step="0.01" min="0" required />
+          </div>
+          <div class="form-group">
+            <label>Stock</label>
+            <input type="number" id="p-stock" placeholder="0" min="0" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="p-categoria" required>
+            <option value="">Seleccionar categoría</option>
+            <option value="Computación">Computación</option>
+            <option value="Periféricos">Periféricos</option>
+            <option value="Componentes">Componentes</option>
+            <option value="Accesorios">Accesorios</option>
+          </select>
+        </div>
+
+        <input type="hidden" id="p-id" />
+
+        <div class="modal__footer">
+          <button type="button" class="btn btn--secondary" onclick="cerrarModal('modal-producto')">Cancelar</button>
+          <button type="submit" class="btn btn--primary">Guardar producto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       MODAL — PEDIDO
+  ===================================================== -->
+  <div class="modal-overlay" id="modal-pedido">
+    <div class="modal">
+      <div class="modal__header">
+        <div>
+          <div class="modal__title" id="modal-pedido-titulo">Nuevo pedido</div>
+          <div class="modal__subtitle" id="modal-pedido-subtitulo">Registra una nueva orden de compra</div>
+        </div>
+        <button class="modal__close" onclick="cerrarModal('modal-pedido')">✕</button>
+      </div>
+
+      <form onsubmit="guardarPedido(event)">
+        <div class="form-group">
+          <label>Cliente</label>
+          <select id="ped-cliente" required>
+            <option value="">Seleccionar cliente</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Estado</label>
+            <select id="ped-estado" required>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Enviado">Enviado</option>
+              <option value="Entregado">Entregado</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Total (USD)</label>
+            <input type="number" id="ped-total" placeholder="0.00" step="0.01" min="0" required />
+          </div>
+        </div>
+
+        <input type="hidden" id="ped-id" />
+
+        <div class="modal__footer">
+          <button type="button" class="btn btn--secondary" onclick="cerrarModal('modal-pedido')">Cancelar</button>
+          <button type="submit" class="btn btn--primary">Guardar pedido</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Notificación toast -->
+  <div id="toast"></div>
+
+  <!-- =====================================================
+       SCRIPTS — Orden importante:
+         1. app.js     → utilidades y navegación globales
+         2. clientes.js → módulo de clientes
+         3. productos.js → módulo de productos
+         4. pedidos.js  → módulo de pedidos
+  ===================================================== -->
+  <script src="js/app.js"></script>
+  <script src="js/clientes.js"></script>
+  <script src="js/productos.js"></script>
+  <script src="js/pedidos.js"></script>
+
+</body>
+</html>
