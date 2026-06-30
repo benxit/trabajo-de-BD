@@ -1,0 +1,90 @@
+[{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73ae"
+  },
+  "nombre": "Ana Martínezsdfgh",
+  "email": "ana.martinez@email.com",
+  "telefono": "+56912345678",
+  "direccion": {
+    "calle": "Av. Providencia 123",
+    "ciudad": "Santiago",
+    "pais": "Chile"
+  },
+  "fecha_registro": {
+    "$date": "2026-06-26T03:13:54.599Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-26T12:20:57.542Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73af"
+  },
+  "nombre": "Carlos Gómez",
+  "email": "cgomez@email.com",
+  "telefono": "+56987654321",
+  "direccion": {
+    "calle": "Calle Libertad 456",
+    "ciudad": "Valparaíso",
+    "pais": "Chile"
+  },
+  "fecha_registro": {
+    "$date": "2026-06-26T03:13:54.599Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73b3"
+  },
+  "nombre": "María Fernández",
+  "email": "mfernandez@email.com",
+  "telefono": "+56911112222",
+  "direccion": {
+    "calle": "Av. Los Leones 789",
+    "ciudad": "Santiago",
+    "pais": "Chile"
+  },
+  "fecha_registro": {
+    "$date": "2026-06-26T03:13:54.636Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73b5"
+  },
+  "nombre": "Laura Silva",
+  "email": "lsilva@email.com",
+  "telefono": "+56955556666",
+  "direccion": {
+    "calle": "Av. Costanera 654",
+    "ciudad": "La Serena",
+    "pais": "Chile"
+  },
+  "fecha_registro": {
+    "$date": "2026-06-26T03:13:54.636Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a43d655366d7e6dd8945632"
+  },
+  "nombre": "wekos",
+  "email": "efa@gmaic.om",
+  "telefono": "2342642342",
+  "direccion": {
+    "calle": "Av.colmena 1234",
+    "ciudad": "La Serena",
+    "pais": "Chile"
+  },
+  "fecha_registro": {
+    "$date": "2026-06-30T14:44:37.570Z"
+  },
+  "createdAt": {
+    "$date": "2026-06-30T14:44:37.581Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-30T14:44:37.581Z"
+  },
+  "__v": 0
+}]

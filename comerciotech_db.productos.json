@@ -1,0 +1,53 @@
+[{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73b0"
+  },
+  "nombre": "Laptop Pro 15",
+  "descripcion": "Laptop de alto rendimiento para desarrolladores",
+  "precio": 1250.54,
+  "stock": 25,
+  "categoria": "Computación",
+  "updatedAt": {
+    "$date": "2026-06-30T03:13:29.264Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73b1"
+  },
+  "nombre": "Monitor 4K Ultra",
+  "descripcion": "Monitor de 27 pulgadas con resolución 4K",
+  "precio": 350,
+  "stock": 15,
+  "categoria": "Periféricos"
+},
+{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73b6"
+  },
+  "nombre": "Teclado Mecánico RGB",
+  "descripcion": "Teclado gamer con switches mecánicos",
+  "precio": 89.99,
+  "stock": 40,
+  "categoria": "Periféricos"
+},
+{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73b7"
+  },
+  "nombre": "Mouse Inalámbrico Pro",
+  "descripcion": "Mouse ergonómico de alta precisión",
+  "precio": 45.5,
+  "stock": 60,
+  "categoria": "Periféricos"
+},
+{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73b8"
+  },
+  "nombre": "SSD NVMe 1TB",
+  "descripcion": "Unidad de almacenamiento de alta velocidad",
+  "precio": 120,
+  "stock": 35,
+  "categoria": "Componentes"
+}]

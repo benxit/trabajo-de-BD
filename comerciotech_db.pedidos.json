@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73b2"
+  },
+  "cliente_id": {
+    "$oid": "6a3dee72b1ab9e0e311c73ae"
+  },
+  "fecha_pedido": {
+    "$date": "2026-06-26T03:13:54.631Z"
+  },
+  "estado": "Enviado",
+  "detalles": [],
+  "total": 1950.5,
+  "updatedAt": {
+    "$date": "2026-06-30T13:07:36.890Z"
+  }
+}]
