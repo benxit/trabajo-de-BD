@@ -1,34 +1,17 @@
-// ============================================================
-//  ComercioTech — Controlador de Clientes
-//  Archivo: controllers/clienteController.js
-//
-//  Responsabilidad:
-//    - Contener la lógica de negocio de cada operación CRUD
-//    - Recibir datos validados desde las rutas
-//    - Interactuar con el modelo Cliente
-//    - Retornar respuestas JSON estructuradas
-//
-//  Métodos exportados:
-//    obtenerTodos   → GET  /api/clientes
-//    obtenerPorId   → GET  /api/clientes/:id
-//    crear          → POST /api/clientes
-//    actualizar     → PUT  /api/clientes/:id
-//    eliminar       → DELETE /api/clientes/:id
-// ============================================================
 
 const Cliente = require('../models/Cliente');
 
-// ------------------------------------------------------------
 // GET /api/clientes
 // Retorna todos los clientes ordenados por nombre
-// ------------------------------------------------------------
 const obtenerTodos = async (req, res, next) => {
   try {
     const clientes = await Cliente
       .find()
       .sort({ nombre: 1 });          // orden alfabético ascendente
 
-    res.status(200).json({
+    // Respuesta JSON con la lista de clientes
+
+    res.status(200).json({  
       ok:     true,
       total:  clientes.length,
       datos:  clientes
@@ -39,10 +22,10 @@ const obtenerTodos = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // GET /api/clientes/:id
 // Retorna un cliente por su ID de MongoDB
-// ------------------------------------------------------------
+
 const obtenerPorId = async (req, res, next) => {
   try {
     const cliente = await Cliente.findById(req.params.id);
@@ -61,10 +44,10 @@ const obtenerPorId = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // POST /api/clientes
 // Crea un nuevo cliente con los datos del body
-// ------------------------------------------------------------
+
 const crear = async (req, res, next) => {
   try {
     const nuevoCliente = new Cliente(req.body);
@@ -88,10 +71,10 @@ const crear = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // PUT /api/clientes/:id
 // Actualiza los campos enviados en el body para un cliente
-// ------------------------------------------------------------
+
 const actualizar = async (req, res, next) => {
   try {
     const actualizado = await Cliente.findByIdAndUpdate(
@@ -121,10 +104,10 @@ const actualizar = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // DELETE /api/clientes/:id
 // Elimina permanentemente un cliente por su ID
-// ------------------------------------------------------------
+
 const eliminar = async (req, res, next) => {
   try {
     const eliminado = await Cliente.findByIdAndDelete(req.params.id);
@@ -147,9 +130,9 @@ const eliminar = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // Exportar todos los métodos del controlador
-// ------------------------------------------------------------
+
 module.exports = {
   obtenerTodos,
   obtenerPorId,

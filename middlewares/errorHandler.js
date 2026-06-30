@@ -1,27 +1,14 @@
-// ============================================================
-//  ComercioTech — Middleware de Manejo de Errores
-//  Archivo: middlewares/errorHandler.js
-//
-//  Responsabilidad:
-//    - Capturar todos los errores que los controladores
-//      pasen mediante next(error)
-//    - Clasificar el tipo de error y retornar respuesta
-//      JSON apropiada con código HTTP correcto
-//    - Evitar que Express muestre stack traces al cliente
-//
-//  Express reconoce este middleware como manejador de errores
-//  porque recibe 4 parámetros: (err, req, res, next)
-// ============================================================
 
 const errorHandler = (err, req, res, next) => {
 
-  // Mostrar error en consola del servidor (solo en desarrollo)
+  // Mostrar error en consola del servidor 
   console.error(`[ERROR] ${new Date().toISOString()} - ${err.message}`);
 
-  // ----------------------------------------------------------
+ 
   // Error de validación de Mongoose
+
+
   // Ocurre cuando un campo requerido falta o tiene formato incorrecto
-  // ----------------------------------------------------------
   if (err.name === 'ValidationError') {
     const mensajes = Object.values(err.errors).map(e => e.message);
     return res.status(400).json({
@@ -31,10 +18,10 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // ----------------------------------------------------------
+ 
   // Error de ID inválido (CastError)
   // Ocurre cuando el :id en la URL no es un ObjectId válido de MongoDB
-  // ----------------------------------------------------------
+ 
   if (err.name === 'CastError' && err.kind === 'ObjectId') {
     return res.status(400).json({
       ok:      false,
@@ -43,23 +30,22 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // ----------------------------------------------------------
+ 
   // Error de duplicado (índice único)
   // Código 11000 = violación de restricción unique en MongoDB
-  // ----------------------------------------------------------
-  if (err.code === 11000) {
-    const campo = Object.keys(err.keyValue)[0];
-    return res.status(400).json({
+ 
+  if (err.code === 11000) { // error de duplicado
+    const campo = Object.keys(err.keyValue)[0]; // obtiene el nombre del campo duplicado
+    return res.status(400).json({ // error de duplicado
       ok:      false,
       tipo:    'Valor duplicado',
-      mensaje: `Ya existe un registro con ese valor en el campo '${campo}'`
+      mensaje: `Ya existe un registro con ese valor en el campo '${campo}'` // mensaje de error
     });
   }
 
-  // ----------------------------------------------------------
-  // Error genérico del servidor
+ 
+
   // Cualquier otro error no clasificado
-  // ----------------------------------------------------------
   res.status(500).json({
     ok:      false,
     tipo:    'Error interno del servidor',
@@ -67,4 +53,4 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
-module.exports = errorHandler;
+module.exports = errorHandler; // Exporta el middleware para usarlo en app.js

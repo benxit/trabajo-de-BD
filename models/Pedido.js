@@ -1,31 +1,15 @@
-// ============================================================
-//  ComercioTech — Modelo de Pedido
-//  Archivo: models/Pedido.js
-//
-//  Responsabilidad:
-//    - Definir el schema de la colección 'pedidos'
-//    - Referenciar clientes y productos mediante ObjectId
-//    - Validar estados permitidos del pedido
-//    - Exportar el modelo para los controladores
-//
-//  Colección en MongoDB: pedidos
-//
-//  Relaciones:
-//    - cliente_id         → referencia a colección 'clientes'
-//    - detalles[].producto_id → referencia a colección 'productos'
-// ============================================================
+
 
 const mongoose = require('mongoose');
 
-// ------------------------------------------------------------
 // Estados válidos de un pedido (en orden de flujo)
-// ------------------------------------------------------------
+// 
 const ESTADOS_PEDIDO = ['Pendiente', 'Enviado', 'Entregado', 'Cancelado'];
 
-// ------------------------------------------------------------
+
 // Sub-schema: Detalle de línea del pedido
 // Cada ítem representa un producto con cantidad y precio
-// ------------------------------------------------------------
+
 const detalleSchema = new mongoose.Schema(
   {
     producto_id: {
@@ -49,9 +33,8 @@ const detalleSchema = new mongoose.Schema(
   { _id: false }
 );
 
-// ------------------------------------------------------------
 // Schema principal: Pedido
-// ------------------------------------------------------------
+
 const pedidoSchema = new mongoose.Schema(
   {
     cliente_id: {
@@ -82,10 +65,7 @@ const pedidoSchema = new mongoose.Schema(
 
     detalles: {
       type:     [detalleSchema],
-      validate: {
-        validator: (arr) => arr.length >= 1,
-        message:   'El pedido debe tener al menos un producto'
-      }
+      default:  []
     }
   },
   {
@@ -94,9 +74,9 @@ const pedidoSchema = new mongoose.Schema(
   }
 );
 
-// ------------------------------------------------------------
+// 
 // Exportar estados también para usarlos en el frontend
-// ------------------------------------------------------------
+//
 pedidoSchema.statics.ESTADOS = ESTADOS_PEDIDO;
 
 module.exports = mongoose.model('Pedido', pedidoSchema);

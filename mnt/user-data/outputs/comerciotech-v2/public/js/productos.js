@@ -1,36 +1,22 @@
-// ============================================================
-//  ComercioTech — Módulo Frontend: Productos
-//  Archivo: public/js/productos.js
-//
-//  Responsabilidad:
-//    - Cargar y renderizar la tabla de productos
-//    - Abrir/cerrar el modal de producto
-//    - Enviar peticiones a la API para crear, editar y eliminar
-//
-//  Depende de: app.js (API_BASE, toast, formatPrecio, badgeStock, cerrarModal, abrirModal)
-// ============================================================
-
-// ============================================================
-//  LEER — Cargar todos los productos desde la API
-// ============================================================
+//  PRODUCTOS — Cargar tabla de productos
 async function cargarProductos() {
   const tbody = document.getElementById('tabla-productos');
-  tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state__icon">⏳</div><div class="empty-state__text">Cargando productos...</div></div></td></tr>`;
-
+  tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state__icon">⏳</div><div class="empty-state__text">Cargando productos...</div></div></td></tr>`; // Mensaje de carga mientras se obtiene la información
+  //  Fetch de productos desde la API
   try {
     const res       = await fetch(`${API_BASE}/productos`);
     const respuesta = await res.json();
     const productos = respuesta.datos;
 
     // Actualizar contadores
-    document.getElementById('count-productos').textContent  = productos.length;
+    document.getElementById('count-productos').textContent  = productos.length; 
     document.getElementById('metric-productos').textContent = productos.length;
-
+    //  Si no hay productos, mostrar mensaje de vacío
     if (productos.length === 0) {
       tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state__icon">📦</div><div class="empty-state__text">No hay productos registrados aún</div></div></td></tr>`;
       return;
     }
-
+    //  Renderizar filas de la tabla con los productos obtenidos
     tbody.innerHTML = productos.map(p => `
       <tr>
         <td>
@@ -48,15 +34,15 @@ async function cargarProductos() {
         </td>
       </tr>
     `).join('');
-
+  //  Manejo de errores en caso de fallo en la conexión o respuesta del servidor
   } catch {
     tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state__icon">❌</div><div class="empty-state__text">No se pudo conectar con el servidor</div></div></td></tr>`;
   }
 }
 
-// ============================================================
+
 //  CREAR — Abrir modal vacío
-// ============================================================
+
 function abrirModalProducto() {
   document.getElementById('modal-producto-titulo').textContent    = 'Nuevo producto';
   document.getElementById('modal-producto-subtitulo').textContent = 'Agrega un producto al catálogo';
@@ -64,9 +50,9 @@ function abrirModalProducto() {
   abrirModal('modal-producto');
 }
 
-// ============================================================
+
 //  GUARDAR — Crear o actualizar producto
-// ============================================================
+
 async function guardarProducto(e) {
   e.preventDefault();
   const id = document.getElementById('p-id').value;
@@ -78,11 +64,11 @@ async function guardarProducto(e) {
     stock:       parseInt(document.getElementById('p-stock').value),
     categoria:   document.getElementById('p-categoria').value
   };
-
+  // Validación básica de campos requeridos
   try {
-    const url    = id ? `${API_BASE}/productos/${id}` : `${API_BASE}/productos`;
-    const method = id ? 'PUT' : 'POST';
-
+    const url    = id ? `${API_BASE}/productos/${id}` : `${API_BASE}/productos`; // Determina la URL según si es creación o actualización
+    const method = id ? 'PUT' : 'POST'; 
+    // Realiza la petición al servidor con los datos del producto
     const res = await fetch(url, {
       method,
       headers: { 'Content-Type': 'application/json' },
@@ -105,9 +91,9 @@ async function guardarProducto(e) {
   }
 }
 
-// ============================================================
+
 //  EDITAR — Cargar datos del producto en el modal
-// ============================================================
+
 async function editarProducto(id) {
   try {
     const res       = await fetch(`${API_BASE}/productos/${id}`);
@@ -131,9 +117,9 @@ async function editarProducto(id) {
   }
 }
 
-// ============================================================
+
 //  ELIMINAR — Confirmar y borrar producto
-// ============================================================
+
 async function eliminarProducto(id, nombre) {
   if (!confirm(`¿Eliminar el producto "${nombre}"?\nEsta acción no se puede deshacer.`)) return;
 

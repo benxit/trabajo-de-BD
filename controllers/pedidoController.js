@@ -1,27 +1,12 @@
-// ============================================================
-//  ComercioTech — Controlador de Pedidos
-//  Archivo: controllers/pedidoController.js
-//
-//  Responsabilidad:
-//    - Lógica de negocio para operaciones CRUD de pedidos
-//    - Usar populate() para resolver referencias a clientes/productos
-//    - Interactuar con el modelo Pedido
-//
-//  Métodos exportados:
-//    obtenerTodos   → GET    /api/pedidos
-//    obtenerPorId   → GET    /api/pedidos/:id
-//    crear          → POST   /api/pedidos
-//    actualizar     → PUT    /api/pedidos/:id
-//    eliminar       → DELETE /api/pedidos/:id
-// ============================================================
+
 
 const Pedido = require('../models/Pedido');
 
-// ------------------------------------------------------------
+
 // GET /api/pedidos
 // Retorna todos los pedidos con datos del cliente y productos
 // populate() resuelve las referencias ObjectId a documentos reales
-// ------------------------------------------------------------
+
 const obtenerTodos = async (req, res, next) => {
   try {
     const pedidos = await Pedido
@@ -41,10 +26,10 @@ const obtenerTodos = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // GET /api/pedidos/:id
 // Retorna un pedido específico con sus referencias resueltas
-// ------------------------------------------------------------
+
 const obtenerPorId = async (req, res, next) => {
   try {
     const pedido = await Pedido
@@ -66,10 +51,10 @@ const obtenerPorId = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // POST /api/pedidos
 // Crea un nuevo pedido vinculado a un cliente y productos
-// ------------------------------------------------------------
+
 const crear = async (req, res, next) => {
   try {
     const nuevoPedido = new Pedido(req.body);
@@ -92,10 +77,10 @@ const crear = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // PUT /api/pedidos/:id
 // Actualiza estado u otros campos de un pedido existente
-// ------------------------------------------------------------
+
 const actualizar = async (req, res, next) => {
   try {
     const actualizado = await Pedido.findByIdAndUpdate(
@@ -124,10 +109,10 @@ const actualizar = async (req, res, next) => {
   }
 };
 
-// ------------------------------------------------------------
+
 // DELETE /api/pedidos/:id
 // Elimina permanentemente un pedido por su ID
-// ------------------------------------------------------------
+
 const eliminar = async (req, res, next) => {
   try {
     const eliminado = await Pedido.findByIdAndDelete(req.params.id);

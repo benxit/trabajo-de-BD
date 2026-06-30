@@ -1,21 +1,9 @@
-// ============================================================
-//  ComercioTech — Modelo de Producto
-//  Archivo: models/Producto.js
-//
-//  Responsabilidad:
-//    - Definir el schema de la colección 'productos'
-//    - Validar precio mínimo, stock no negativo y categorías
-//    - Exportar el modelo para los controladores
-//
-//  Colección en MongoDB: productos
-// ============================================================
 
+// models/Producto.js
 const mongoose = require('mongoose');
 
-// ------------------------------------------------------------
 // Categorías permitidas para productos
 // Centralizado aquí para fácil mantenimiento
-// ------------------------------------------------------------
 const CATEGORIAS_PERMITIDAS = [
   'Computación',
   'Periféricos',
@@ -23,9 +11,7 @@ const CATEGORIAS_PERMITIDAS = [
   'Accesorios'
 ];
 
-// ------------------------------------------------------------
 // Schema principal: Producto
-// ------------------------------------------------------------
 const productoSchema = new mongoose.Schema(
   {
     nombre: {
@@ -69,9 +55,7 @@ const productoSchema = new mongoose.Schema(
   }
 );
 
-// ------------------------------------------------------------
 // Exportar categorías también para usarlas en el frontend
-// ------------------------------------------------------------
 productoSchema.statics.CATEGORIAS = CATEGORIAS_PERMITIDAS;
 
 module.exports = mongoose.model('Producto', productoSchema);

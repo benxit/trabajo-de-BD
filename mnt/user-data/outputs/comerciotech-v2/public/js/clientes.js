@@ -1,18 +1,4 @@
-// ============================================================
-//  ComercioTech — Módulo Frontend: Clientes
-//  Archivo: public/js/clientes.js
-//
-//  Responsabilidad:
-//    - Cargar y renderizar la tabla de clientes
-//    - Abrir/cerrar el modal de cliente
-//    - Enviar peticiones a la API para crear, editar y eliminar
-//
-//  Depende de: app.js (API_BASE, toast, formatFecha, cerrarModal, abrirModal)
-// ============================================================
 
-// ============================================================
-//  LEER — Cargar todos los clientes desde la API
-// ============================================================
 async function cargarClientes() {
   const tbody = document.getElementById('tabla-clientes');
   tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state__icon">⏳</div><div class="empty-state__text">Cargando clientes...</div></div></td></tr>`;
@@ -56,19 +42,18 @@ async function cargarClientes() {
   }
 }
 
-// ============================================================
+
 //  CREAR — Abrir modal vacío
-// ============================================================
 function abrirModalCliente() {
-  document.getElementById('modal-cliente-titulo').textContent = 'Nuevo cliente';
+  document.getElementById('modal-cliente-titulo').textContent = 'Nuevo cliente'; 
   document.getElementById('modal-cliente-subtitulo').textContent = 'Completa los datos del cliente';
   cerrarModal('modal-cliente');
   abrirModal('modal-cliente');
 }
 
-// ============================================================
+
 //  GUARDAR — Crear o actualizar cliente según si hay ID
-// ============================================================
+
 async function guardarCliente(e) {
   e.preventDefault();
   const id = document.getElementById('c-id').value;
@@ -83,7 +68,7 @@ async function guardarCliente(e) {
       pais:   document.getElementById('c-pais').value.trim()
     }
   };
-
+  // Validación básica de campos requeridos
   try {
     const url    = id ? `${API_BASE}/clientes/${id}` : `${API_BASE}/clientes`;
     const method = id ? 'PUT' : 'POST';
@@ -93,7 +78,7 @@ async function guardarCliente(e) {
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(datos)
     });
-
+    // Obtener la respuesta JSON del servidor
     const respuesta = await res.json();
 
     if (!res.ok) {
@@ -110,9 +95,9 @@ async function guardarCliente(e) {
   }
 }
 
-// ============================================================
+
 //  EDITAR — Cargar datos del cliente en el modal
-// ============================================================
+
 async function editarCliente(id) {
   try {
     const res       = await fetch(`${API_BASE}/clientes/${id}`);
@@ -137,9 +122,9 @@ async function editarCliente(id) {
   }
 }
 
-// ============================================================
+
 //  ELIMINAR — Confirmar y borrar cliente
-// ============================================================
+
 async function eliminarCliente(id, nombre) {
   if (!confirm(`¿Eliminar al cliente "${nombre}"?\nEsta acción no se puede deshacer.`)) return;
 

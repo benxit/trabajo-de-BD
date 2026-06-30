@@ -1,21 +1,11 @@
-// ============================================================
-//  ComercioTech — Modelo de Cliente
-//  Archivo: models/Cliente.js
-//
-//  Responsabilidad:
-//    - Definir el schema (estructura) de la colección 'clientes'
-//    - Aplicar validaciones de campos requeridos y formatos
-//    - Exportar el modelo para ser usado en los controladores
-//
-//  Colección en MongoDB: clientes
-// ============================================================
+
 
 const mongoose = require('mongoose');
 
-// ------------------------------------------------------------
+
 // Sub-schema: Dirección
 // Definido por separado para mayor claridad y reutilización
-// ------------------------------------------------------------
+ 
 const direccionSchema = new mongoose.Schema(
   {
     calle:  { type: String, required: [true, 'La calle es requerida'] },
@@ -25,9 +15,9 @@ const direccionSchema = new mongoose.Schema(
   { _id: false } // No genera _id para el subdocumento
 );
 
-// ------------------------------------------------------------
+//
 // Schema principal: Cliente
-// ------------------------------------------------------------
+// 
 const clienteSchema = new mongoose.Schema(
   {
     nombre: {

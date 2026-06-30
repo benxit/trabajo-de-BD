@@ -1,18 +1,4 @@
-// ============================================================
-//  ComercioTech — Módulo Frontend: Pedidos
-//  Archivo: public/js/pedidos.js
-//
-//  Responsabilidad:
-//    - Cargar y renderizar la tabla de pedidos
-//    - Poblar el select de clientes en el modal
-//    - Enviar peticiones a la API para crear, editar y eliminar
-//
-//  Depende de: app.js (API_BASE, toast, formatPrecio, formatFecha, badgeEstado, cerrarModal, abrirModal)
-// ============================================================
 
-// ============================================================
-//  LEER — Cargar todos los pedidos desde la API
-// ============================================================
 async function cargarPedidos() {
   const tbody = document.getElementById('tabla-pedidos');
   tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-state__icon">⏳</div><div class="empty-state__text">Cargando pedidos...</div></div></td></tr>`;
@@ -55,9 +41,9 @@ async function cargarPedidos() {
   }
 }
 
-// ============================================================
+
 //  AUXILIAR — Poblar select de clientes en el modal
-// ============================================================
+
 async function cargarClientesEnSelect() {
   const sel = document.getElementById('ped-cliente');
   sel.innerHTML = '<option value="">Cargando clientes...</option>';
@@ -75,9 +61,9 @@ async function cargarClientesEnSelect() {
   }
 }
 
-// ============================================================
+
 //  CREAR — Abrir modal vacío
-// ============================================================
+
 async function abrirModalPedido() {
   document.getElementById('modal-pedido-titulo').textContent    = 'Nuevo pedido';
   document.getElementById('modal-pedido-subtitulo').textContent = 'Registra una nueva orden de compra';
@@ -86,9 +72,9 @@ async function abrirModalPedido() {
   abrirModal('modal-pedido');
 }
 
-// ============================================================
+
 //  GUARDAR — Crear o actualizar pedido
-// ============================================================
+
 async function guardarPedido(e) {
   e.preventDefault();
   const id = document.getElementById('ped-id').value;
@@ -126,9 +112,9 @@ async function guardarPedido(e) {
   }
 }
 
-// ============================================================
+
 //  EDITAR — Cargar datos del pedido en el modal
-// ============================================================
+
 async function editarPedido(id) {
   try {
     const res       = await fetch(`${API_BASE}/pedidos/${id}`);
@@ -152,9 +138,9 @@ async function editarPedido(id) {
   }
 }
 
-// ============================================================
+
 //  ELIMINAR — Confirmar y borrar pedido
-// ============================================================
+
 async function eliminarPedido(id) {
   if (!confirm(`¿Eliminar el pedido #${id.slice(-8).toUpperCase()}?\nEsta acción no se puede deshacer.`)) return;
 
